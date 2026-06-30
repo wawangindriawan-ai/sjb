@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PT. Saleh Jaya Barokah (SJB) - Solusi Multi-Layanan Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans scroll-smooth"></body><nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-slate-100">
+  <div class="max-w-6xl mx-auto px-4 py-3 md:py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2 md:space-x-3">
+      <a href="index.php" class="bg-blue-600 text-white p-1.5 md:p-2 rounded-lg font-bold text-base md:text-lg shadow-md shadow-blue-200">SJB</a>
+      <span class="text-base md:text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">PT. SALEH JAYA BAROKAH</span>
+    </div>
+
+    <div class="hidden md:flex space-x-8 font-medium text-slate-600 items-center">
+      <a href="index.php" class="text-blue-600 font-bold">Beranda</a>
+
+      <div class="relative group">
+        <button class="hover:text-blue-600 transition flex items-center space-x-1 focus:outline-none py-2">
+          <span>Layanan Kami</span>
+          <i class="fas fa-chevron-down text-xs"></i>
+        </button>
+        <div class="absolute left-0 mt-1 w-56 bg-white border border-slate-100 rounded-xl shadow-xl py-2 hidden group-hover:block transition duration-200">
+          <a href="layanan/bersih-rumah.php" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600">Jasa Bersih Rumah</a>
+          <a href="layanan/bersih-kantor.php" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600">Jasa Bersih Kantor</a>
+          <a href="layanan/cuci-sofa.php" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600">Jasa Cuci Sofa</a>
+          <a href="layanan/digital-printing.php" class="block px-4 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600">Digital Printing</a>
+        </div>
+      </div>
+
+      <a href="#tentang-kami" class="hover:text-blue-600 transition">Tentang Kami</a>
+      <a href="#legalitas" class="hover:text-blue-600 transition">Legalitas</a>
+      <a href="#kontak" class="hover:text-blue-600 transition">Hubungi Kami</a>
+    </div>
+
+    <button onclick="toggleMobileMenu()" class="md:hidden text-slate-600 text-lg focus:outline-none">
+      <i id="menu-icon" class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 py-4 space-y-3 shadow-inner">
+    <a href="index.php" class="block text-blue-600 font-bold text-sm">Beranda</a>
+    <div class="border-t border-b border-slate-100 py-2 my-1 bg-slate-50 rounded-lg px-2">
+      <span class="block text-[10px] font-bold uppercase text-slate-400 tracking-wider px-2 mb-1">List Layanan</span>
+      <a href="layanan/bersih-rumah.php" class="block px-2 py-1 text-sm text-slate-700">Jasa Bersih Rumah</a>
+      <a href="layanan/bersih-kantor.php" class="block px-2 py-1 text-sm text-slate-700">Jasa Bersih Kantor</a>
+      <a href="layanan/cuci-sofa.php" class="block px-2 py-1 text-sm text-slate-700">Jasa Cuci Sofa</a>
+      <a href="layanan/digital-printing.php" class="block px-2 py-1 text-sm text-slate-700">Digital Printing</a>
+    </div>
+    <a href="#tentang-kami" class="block text-slate-600 text-sm">Tentang Kami</a>
+    <a href="#legalitas" class="block text-slate-600 text-sm">Legalitas</a>
+    <a href="#kontak" class="block text-slate-600 text-sm">Hubungi Kami</a>
+  </div>
+</nav><header class="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 text-white py-16 md:py-24 px-4 text-center overflow-hidden">
+  <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+  <div class="max-w-3xl mx-auto relative z-10">
+    <span class="bg-blue-500/10 text-blue-400 text-[10px] md:text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-blue-500/20">Facility Services & Procurement Specialist</span>
+    <h1 class="text-2xl md:text-5xl font-black tracking-tight mt-3 mb-4 md:mb-6 leading-tight">Mitra Terpercaya Kebersihan & Kebutuhan Bisnis Anda</h1>
+    <p class="text-xs md:text-lg text-slate-300 max-w-2xl mx-auto mb-6 md:mb-8 font-light leading-relaxed">
+      Menjadi perusahaan facility service terbaik yang memberikan produk berkualitas sebagai mitra usaha pilihan Anda.
+    </p>
+    <a href="#layanan-grid" class="bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-2.5 md:py-3.5 rounded-xl font-bold shadow-lg shadow-blue-600/30 transition inline-flex items-center space-x-2 text-xs md:text-base">
+      <span>Lihat Layanan</span>
+      <i class="fas fa-arrow-down text-[10px] md:text-sm"></i>
+    </a>
+  </div>
+</header>
+<main class="bg-slate-50 min-h-screen py-6 md:py-10">
+  <div class="max-w-6xl mx-auto px-4">
+    
+    <nav class="text-xs font-semibold text-slate-400 mb-6 tracking-wide uppercase flex items-center space-x-2">
+      <a href="../index.html" class="hover:text-blue-600 transition">Home</a>
+      <span>/</span>
+      <span class="text-slate-500">Layanan</span>
+      <span>/</span>
+      <span class="text-blue-600">Bersih Rumah</span>
+    </nav>
+
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-8 md:p-12 rounded-3xl shadow-xl shadow-blue-600/10 mb-10 relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+      <div class="relative z-10 max-w-2xl">
+        <span class="bg-white/20 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-white/10">Residential Service</span>
+        <h1 class="text-3xl md:text-4xl font-black tracking-tight mt-3 mb-4">Jasa Bersih Rumah Profesional</h1>
+        <p class="text-blue-100 text-sm md:text-base leading-relaxed">Kembalikan kenyamanan dan kehangatan rumah Anda tanpa harus lelah. Tim terlatih kami siap membersihkan setiap sudut hunian secara detail, aman, dan higienis.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+      <div class="lg:col-span-8 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
+          
+        <div class="rounded-xl overflow-hidden mb-8 shadow-sm">
+          <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80" alt="Home Cleaning Service" class="w-full h-auto object-cover max-h-[400px]">
+        </div>
+
+        <section id="tentang-layanan" class="mb-10 scroll-mt-24">
+          <h2 class="text-xl md:text-2xl font-black text-slate-900 mb-4 flex items-center">
+            <span class="w-2 h-6 bg-blue-600 rounded-full mr-3"></span>1. Tentang Jasa Bersih Rumah SJB
+          </h2>
+          <p class="text-slate-600 leading-relaxed text-xs md:text-sm mb-4">
+            Rumah yang bersih adalah kunci utama kesehatan keluarga. Namun, kesibukan kerja dan rutinitas harian seringkali membuat Anda tidak memiliki waktu luang untuk melakukan pembersihan menyeluruh. 
+          </p>
+          <p class="text-slate-600 leading-relaxed text-xs md:text-sm">
+            <strong>PT. Saleh Jaya Barokah (SJB)</strong> hadir memberikan solusi praktis. Layanan <em>Home Cleaning</em> kami dirancang fleksibel untuk memenuhi kebutuhan hunian Anda, baik untuk pembersihan rutin harian (<em>Regular Cleaning</em>) maupun pembersihan total pasca-renovasi, pindah rumah, atau setelah acara besar (<em>General Cleaning</em>).
+          </p>
+        </section>
+
+        <section id="keunggulan" class="mb-10 scroll-mt-24 border-t border-slate-100 pt-8">
+          <h2 class="text-xl md:text-2xl font-black text-slate-900 mb-4 flex items-center">
+            <span class="w-2 h-6 bg-blue-600 rounded-full mr-3"></span>2. Mengapa Memilih Kami?
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <h4 class="font-bold text-slate-900 text-xs md:text-sm mb-1"><i class="fas fa-user-check text-blue-600 mr-2"></i> Tim Terlatih & Jujur</h4>
+              <p class="text-[11px] text-slate-500 leading-relaxed">Seluruh teknisi lapangan kami telah melewati seleksi ketat dan pelatihan SOP kebersihan standar perhotelan.</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <h4 class="font-bold text-slate-900 text-xs md:text-sm mb-1"><i class="fas fa-tools text-blue-600 mr-2"></i> Peralatan Modern Lengkap</h4>
+              <p class="text-[11px] text-slate-500 leading-relaxed">Kami membawa perlengkapan sendiri mulai dari vacuum cleaner watt khusus, tangga, hingga cairan pembersih kerak.</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <h4 class="font-bold text-slate-900 text-xs md:text-sm mb-1"><i class="fas fa-shield-alt text-blue-600 mr-2"></i> Garansi Kebersihan</h4>
+              <p class="text-[11px] text-slate-500 leading-relaxed">Jika ada sudut ruangan yang terlewat atau kurang bersih, tim kami siap membersihkannya kembali di tempat.</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+              <h4 class="font-bold text-slate-900 text-xs md:text-sm mb-1"><i class="fas fa-tags text-blue-600 mr-2"></i> Harga Transparan</h4>
+              <p class="text-[11px] text-slate-500 leading-relaxed">Biaya dihitung jelas di awal berdasarkan luas area bangunan atau jumlah kamar tanpa biaya tersembunyi.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="cakupan-kerja" class="mb-10 scroll-mt-24 border-t border-slate-100 pt-8">
+          <h2 class="text-xl md:text-2xl font-black text-slate-900 mb-4 flex items-center">
+            <span class="w-2 h-6 bg-blue-600 rounded-full mr-3"></span>3. Cakupan Pekerjaan / SOP
+          </h2>
+          <p class="text-slate-600 leading-relaxed text-xs md:text-sm mb-4">Setiap pengerjaan area rumah mengikuti daftar pengecekan yang ketat meliputi:</p>
+          <ul class="space-y-3 text-slate-600 text-xs md:text-sm">
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 flex-shrink-0"></i> 
+              <span><strong>Ruang Tamu & Kamar Tidur</strong>: Pembersihan debu furnitur, merapikan kasur (<em>bed making</em>), vacuum karpet, serta menyapu dan mengepel lantai.</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 flex-shrink-0"></i> 
+              <span><strong>Kamar Mandi</strong>: Membersihkan kerak dinding/lantai, sikat kloset, wastafel, bak mandi, serta sterilisasi kaca cermin.</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 flex-shrink-0"></i> 
+              <span><strong>Dapur (Kitchen Set)</strong>: Lap permukaan luar kompor, meja dapur, pembersihan noda minyak ringan, dan cuci wastafel piring.</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-check-circle text-emerald-500 mt-1 flex-shrink-0"></i> 
+              <span><strong>Fasilitas Lain</strong>: Pembersihan kaca jendela ban dalam, pengosongan tempat sampah bagian dalam ke penampungan luar.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section id="faq" class="scroll-mt-24 border-t border-slate-100 pt-8">
+          <h2 class="text-xl md:text-2xl font-black text-slate-900 mb-4 flex items-center">
+            <span class="w-2 h-6 bg-blue-600 rounded-full mr-3"></span>4. Tanya Jawab Terkait Jasa (FAQ)
+          </h2>
+          
+          <div class="space-y-3 mt-6">
+            <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50/50">
+              <button onclick="toggleServiceFaq(1)" class="w-full text-left px-5 py-4 font-bold text-xs md:text-sm text-slate-800 flex justify-between items-center hover:bg-slate-100/50 transition">
+                <span>Apakah saya harus menyediakan alat-alat pembersih?</span>
+                <i id="icon-service-faq-1" class="fas fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="ans-service-faq-1" class="hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed bg-white">
+                Tidak perlu gan. Tim SJB sudah membawa perlengkapan standar penuh (sapu, pel, cairan kimia pembersih produksi internal SJB, lap microfiber, dan kemoceng). Namun jika Anda memiliki preferensi sabun atau alat khusus milik pribadi, kami akan dengan senang hati menggunakannya.
+              </div>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50/50">
+              <button onclick="toggleServiceFaq(2)" class="w-full text-left px-5 py-4 font-bold text-xs md:text-sm text-slate-800 flex justify-between items-center hover:bg-slate-100/50 transition">
+                <span>Berapa lama proses pengerjaan bersih rumah?</span>
+                <i id="icon-service-faq-2" class="fas fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="ans-service-faq-2" class="hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed bg-white">
+                Durasi pengerjaan sangat tergantung dari tingkat kekotoran dan luas rumah. Untuk tipe <em>Regular Cleaning</em> rumah standar biasanya memakan waktu sekitar 2 - 4 jam. Sedangkan untuk <em>General Cleaning</em> (pasca-renovasi) memerlukan waktu lebih lama atau dikerjakan oleh lebih dari 2 personil.
+              </div>
+            </div>
+
+            <div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-50/50">
+              <button onclick="toggleServiceFaq(3)" class="w-full text-left px-5 py-4 font-bold text-xs md:text-sm text-slate-800 flex justify-between items-center hover:bg-slate-100/50 transition">
+                <span>Kapan waktu terbaik untuk melakukan booking jadwal?</span>
+                <i id="icon-service-faq-3" class="fas fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+              </button>
+              <div id="ans-service-faq-3" class="hidden px-5 pb-4 text-xs text-slate-600 leading-relaxed bg-white">
+                Kami menyarankan Anda melakukan booking minimal <strong>H-1</strong> sebelum pengerjaan agar kami bisa mengatur penugasan tim secara maksimal. Pemesanan mendadak di hari yang sama (<em>Same Day</em>) akan disesuaikan dengan ketersediaan slot kosong tim kami.
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="lg:col-span-4 space-y-6">
+          
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 lg:sticky lg:top-24">
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-4 flex items-center">
+            <i class="fas fa-list-ul mr-2 text-blue-600"></i> Daftar Isi Halaman
+          </h4>
+          <ul class="space-y-3 text-xs font-medium text-slate-500">
+            <li><a href="#tentang-layanan" class="hover:text-blue-600 block transition">1. Tentang Jasa</a></li>
+            <li><a href="#keunggulan" class="hover:text-blue-600 block transition">2. Keunggulan Kami</a></li>
+            <li><a href="#cakupan-kerja" class="hover:text-blue-600 block transition">3. Cakupan Pekerjaan</a></li>
+            <li><a href="#faq" class="hover:text-blue-600 block transition">4. FAQ / Tanya Jawab</a></li>
+          </ul>
+          
+          <div class="my-5 border-t border-slate-100"></div>
+
+          <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 p-5 rounded-xl text-white shadow-md relative overflow-hidden">
+            <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:10px_10px]"></div>
+            <div class="relative z-10">
+              <h4 class="font-extrabold text-sm mb-1">Pesan Jadwal Sekarang</h4>
+              <p class="text-[11px] text-slate-400 leading-relaxed mb-5">Konsultasikan ukuran rumah Anda untuk mendapatkan penawaran harga terbaik dan gratis kuota konsultasi.</p>
+              
+              <a href="https://wa.me/628123456789?text=Halo%20SJB,%20saya%20ingin%20tanya%20mengenai%20Jasa%20Bersih%20Rumah" target="_blank" class="w-full bg-emerald-500 hover:bg-emerald-600 font-bold text-xs py-3 rounded-xl inline-flex items-center justify-center space-x-2 transition text-center shadow-lg shadow-emerald-500/20 uppercase tracking-wide">
+                <i class="fab fa-whatsapp text-sm"></i>
+                <span>Hubungi via WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <section class="mt-16 pt-10 border-t border-slate-200">
+      <div class="mb-8">
+        <h3 class="text-xl md:text-2xl font-black text-slate-900 tracking-tight">Layanan Kami Lainnya</h3>
+        <p class="text-slate-500 text-xs md:text-sm mt-1">Mungkin Anda juga membutuhkan layanan komersial dan operasional profesional kami berikut ini.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/50 shadow-sm flex flex-col justify-between group">
+          <div class="relative overflow-hidden aspect-[16/10]">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80" alt="Office Cleaning" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="p-5 flex-grow">
+            <h4 class="font-bold text-xs md:text-sm text-slate-900 mb-1.5">Office & Commercial Cleaning</h4>
+            <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-3">Jasa pembersihan area perkantoran, ruko, sekolah, hingga rumah sakit secara berkala demi kenyamanan produktivitas kerja mitra bisnis.</p>
+          </div>
+          <div class="p-5 pt-0">
+            <a href="office-cleaning.html" class="block text-center border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] py-2 rounded-xl transition">Detail Layanan</a>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/50 shadow-sm flex flex-col justify-between group">
+          <div class="relative overflow-hidden aspect-[16/10]">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" alt="Cuci Sofa" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="p-5 flex-grow">
+            <h4 class="font-bold text-xs md:text-sm text-slate-900 mb-1.5">Deep Cleaning Sofa & Kasur</h4>
+            <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-3">Metode pencucian vakum hidrolik untuk mengangkat tungau, noda membandel, dan bakteri pada sofa kain, kasur, maupun jok mobil Anda.</p>
+          </div>
+          <div class="p-5 pt-0">
+            <a href="sofa-cleaning.html" class="block text-center border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] py-2 rounded-xl transition">Detail Layanan</a>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200/50 shadow-sm flex flex-col justify-between group">
+          <div class="relative overflow-hidden aspect-[16/10]">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Digital Printing" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="p-5 flex-grow">
+            <h4 class="font-bold text-xs md:text-sm text-slate-900 mb-1.5">Digital Printing & ATK</h4>
+            <p class="text-slate-500 text-[11px] leading-relaxed line-clamp-3">Layanan pengadaan cetak banner, brosur perusahaan, seragam kerja, hingga supply kebutuhan Alat Tulis Kantor (ATK) skala korporasi.</p>
+          </div>
+          <div class="p-5 pt-0">
+            <a href="digital-printing.html" class="block text-center border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-[11px] py-2 rounded-xl transition">Detail Layanan</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  function toggleServiceFaq(id) {
+      const answer = document.getElementById(`ans-service-faq-${id}`);
+      const icon = document.getElementById(`icon-service-faq-${id}`);
+      
+      if (answer.classList.contains('hidden')) {
+          answer.classList.remove('hidden');
+          icon.classList.add('rotate-180');
+      } else {
+          answer.classList.add('hidden');
+          icon.classList.remove('rotate-180');
+      }
+  }
+</script>
+
+<footer id="kontak" class="bg-slate-950 text-slate-400 py-12 px-4 border-t border-slate-900">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs md:text-sm">
+    <div>
+      <h4 class="text-white font-bold text-sm md:text-base tracking-wide mb-3">PT. Saleh Jaya Barokah (SJB)</h4>
+      <p class="text-slate-500 text-xs leading-relaxed">
+        Penyedia terintegrasi untuk facility services, pengelolaan lanskap, pasokan tenaga kerja, alat tulis kantor, media promosi, dan pendistribusian cairan pembersih industri terpercaya.
+      </p>
+    </div>
+    <div class="space-y-3">
+      <h4 class="text-white font-bold text-xs md:text-sm tracking-wide"><i class="fas fa-map-marker-alt text-blue-500 mr-1.5"></i> Jaringan Kantor Operational</h4>
+      <p class="text-slate-400 text-[11px] leading-relaxed">
+        <strong>Office Pusat:</strong><br />
+        Jl. Sugih Waras Magetan - Madiun, Jawa Timur
+      </p>
+      <p class="text-slate-400 text-[11px] leading-relaxed">
+        <strong>Branch Office Cikarang:</strong><br />
+        Perum Araudah Blok F No. 5, Cikarang Utara, Bekasi, Jawa Barat
+      </p>
+      <p class="text-slate-400 text-[11px] leading-relaxed">
+        <strong>Office Operasional Jakarta:</strong><br />
+        Jalan Flamboyan No. 64a, RT 4 / RW 2, Srengseng, Kembangan, Jakarta Barat
+      </p>
+    </div>
+    <div class="md:text-right flex flex-col md:items-end">
+      <h4 class="text-white font-bold text-xs md:text-sm tracking-wide mb-2.5">Hubungi Marketing Kami</h4>
+      <p class="text-slate-300 text-xs leading-normal mb-3">
+        <strong>Rachman:</strong> 0877-8666-5501<br />
+        <strong>Denny:</strong> 0851-7203-1655<br />
+        <strong>Email:</strong> shalehjayabarokah@gmail.com
+      </p>
+      <div class="flex space-x-4 text-lg md:text-xl mb-3 text-slate-400">
+        <a href="https://wa.me/6287786665501" class="hover:text-emerald-500 transition"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="hover:text-slate-200 transition"><i class="fas fa-envelope"></i></a>
+      </div>
+      <p class="text-[10px] text-slate-600">
+        &copy; 2026 PT. Saleh Jaya Barokah. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer><div id="wa-popup" class="fixed bottom-20 right-4 md:bottom-24 md:right-6 z-50 bg-white rounded-2xl shadow-2xl border border-slate-100 w-72 md:w-80 overflow-hidden hidden transition-all duration-300">
+  <div class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-3.5 md:p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2.5">
+      <div class="relative">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" class="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover" alt="Admin" />
+        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white"></span>
+      </div>
+      <div>
+        <h5 class="font-bold text-xs md:text-sm leading-tight">Rindha</h5>
+        <span class="text-[10px] md:text-[11px] text-emerald-100">Customer Service</span>
+      </div>
+    </div>
+    <button onclick="toggleWaPopup()" class="text-white/70 hover:text-white text-xs md:text-sm">
+      <i class="fas fa-xmark"></i>
+    </button>
+  </div>
+  <div class="p-3.5 bg-slate-50">
+    <div class="bg-white p-2.5 md:p-3 rounded-xl shadow-sm border border-slate-100 max-w-[90%]">
+      <span class="font-bold text-[10px] md:text-xs text-slate-800 block mb-0.5">Rindha</span>
+      <p class="text-[11px] md:text-xs text-slate-600 leading-normal">Ada yang bisa kami bantu mengenai detail penawaran b2b PT. SJB gann?</p>
+    </div>
+  </div>
+  <div class="p-2.5 md:p-3 bg-white border-t border-slate-100">
+    <a href="https://wa.me/6287786665501?text=Halo%20SJB,%20saya%20tertarik%20dengan%20layanan%20perusahaan%20Anda" target="_blank" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-[11px] md:text-xs py-2 md:py-2.5 rounded-xl flex items-center justify-center space-x-1.5 transition uppercase tracking-wide">
+      <i class="fab fa-whatsapp text-sm"></i>
+      <span>Mulai Chat</span>
+    </a>
+  </div>
+</div>
+
+<button onclick="toggleWaPopup()" class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 md:p-4 rounded-full shadow-2xl flex items-center justify-center text-xl md:text-2xl transition transform hover:scale-110">
+  <i class="fab fa-whatsapp"></i>
+  <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border border-white"></span>
+</button>
+
+<script>
+  function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('menu-icon');
+      if (menu.classList.contains('hidden')) {
+          menu.classList.remove('hidden');
+          icon.className = "fas fa-xmark";
+      } else {
+          menu.classList.add('hidden');
+          icon.className = "fas fa-bars";
+      }
+  }
+  function toggleWaPopup() {
+      const popup = document.getElementById('wa-popup');
+      if (popup.classList.contains('hidden')) {
+          popup.classList.remove('hidden');
+      } else {
+          popup.classList.add('hidden');
+      }
+  }
+</script>
+</body>
+</html>
