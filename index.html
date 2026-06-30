@@ -97,6 +97,179 @@
     </div>
   </section>
 
+  <!-- SECTION: GALERI SLIDER DOKUMENTASI -->
+<section id="galeri" class="bg-slate-900 text-white py-12 md:py-20 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12">
+      <div>
+        <span class="text-blue-400 text-xs font-bold tracking-wider uppercase block mb-1">Dokumentasi</span>
+        <h2 class="text-xl md:text-3xl font-black tracking-tight">Galeri Pekerjaan Lapangan</h2>
+      </div>
+      <!-- Tombol Navigasi Slider -->
+      <div class="flex space-x-2 mt-4 md:mt-0">
+        <button onclick="slidePrev()" class="w-9 h-9 md:w-11 md:h-11 rounded-full bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition border border-slate-700/50">
+          <i class="fas fa-chevron-left text-xs md:text-sm"></i>
+        </button>
+        <button onclick="slideNext()" class="w-9 h-9 md:w-11 md:h-11 rounded-full bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition border border-slate-700/50">
+          <i class="fas fa-chevron-right text-xs md:text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Container Slider Track -->
+    <div class="relative w-full overflow-hidden rounded-2xl shadow-2xl">
+      <!-- Element Track ini akan diisi fotonya secara otomatis oleh JavaScript di bawah -->
+      <div id="slider-track" class="flex transition-transform duration-500 ease-out" style="transform: translateX(0%);"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODAL / LIGHTBOX POPUP (UNTUK LIHAT FULL FOTO) -->
+<div id="gallery-modal" class="fixed inset-0 z-50 bg-black/90 hidden flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in" onclick="closeModal()">
+  <!-- Tombol Close -->
+  <button class="absolute top-4 right-4 text-white hover:text-slate-300 text-2xl md:text-4xl">&times;</button>
+  <!-- Gambar Fullscreen -->
+  <img id="modal-img" src="" alt="Full Dokumentasi" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+</div>
+
+<!-- ENGINE JAVASCRIPT SLIDER + AUTOPLAY + POPUP MODAL -->
+<script>
+  // 1. DAFTAR 12 FOTO ABANG DI FOLDER images/
+  // (Silakan sesuaikan nama & ekstensi file fotonya dengan yang ada di folder abang ya)
+  const galleryImages = [
+      { src: 'images/1.jpg', title: 'General Cleaning Kantor', desc: 'Pembersihan menyeluruh area gedung komersial.' },
+      { src: 'images/2.png', title: 'Cuci Sofa & Kasur', desc: 'Penyedotan tungau menggunakan teknologi ekstraksi.' },
+      { src: 'images/3.jpg', title: 'Produksi Chemical', desc: 'Quality control cairan pembersih lantai SJB.' },
+      { src: 'images/4.jpg', title: 'Digital Printing', desc: 'Cetak banner dan media promosi resolusi tinggi.' },
+      { src: 'images/5.jpg', title: 'Pembersihan Kaca Gedung', desc: 'Perawatan kaca luar gedung bertingkat.' },
+      { src: 'images/6.png', title: 'Deep Cleaning Toilet', desc: 'Sanitasi total kerak air dan bakteri di kamar mandi.' },
+      { src: 'images/7.jpg', title: 'Cuci Karpet Masjid', desc: 'Pembersihan karpet ibadah agar wangi dan steril.' },
+      { src: 'images/8.jpg', title: 'Polish Lantai Marmer', desc: 'Restorasi dan kristalisasi lantai marmer agar kilap kembali.' },
+      { src: 'images/9.jpg', title: 'Branding Mobil Operasional', desc: 'Pemasangan stiker printing untuk armada korporat.' },
+      { src: 'images/10.jpg', title: 'Pengemasan Chemical B2B', desc: 'Persiapan distribusi jerigen karbol ke mitra bisnis.' },
+      { src: 'images/11.jpg', title: 'Cleaning Pasca Renovasi', desc: 'Pembersihan sisa debu konstruksi dan cat rumah baru.' },
+      { src: 'images/12.jpg', title: 'Penyemprotan Disinfektan', desc: 'Sterilisasi ruangan kantor demi kenyamanan kerja.' }
+  ];
+
+  let currentSlideIndex = 0;
+  let autoplayTimer = null;
+
+  // 2. GENERATE HTML SLIDER SECARA OTOMATIS
+  function initSlider() {
+      const track = document.getElementById('slider-track');
+      track.innerHTML = ''; // Reset track
+
+      galleryImages.forEach((imgData) => {
+          const slide = document.createElement('div');
+          slide.className = 'w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2';
+          slide.innerHTML = `
+              <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700/40 group cursor-pointer" onclick="openModal('${imgData.src}')">
+                  <div class="relative overflow-hidden aspect-[4/3]">
+                      <img src="${imgData.src}" alt="${imgData.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80'" />
+                      <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                          <span class="bg-blue-600/90 text-white text-xs px-3 py-1.5 rounded-full"><i class="fas fa-search-plus mr-1"></i> Lihat Foto</span>
+                      </div>
+                  </div>
+                  <div class="p-4">
+                      <h4 class="font-bold text-xs md:text-sm text-white mb-1">${imgData.title}</h4>
+                      <p class="text-slate-400 text-[11px] line-clamp-2">${imgData.desc}</p>
+                  </div>
+              </div>
+          `;
+          track.appendChild(slide);
+      });
+      
+      updateSliderPosition();
+      startAutoplay(); // Jalankan timer otomatis setelah render
+  }
+
+  // 3. FUNGSI NAVIGASI & RESPONSIVE GRID
+  function getVisibleSlides() {
+      if (window.innerWidth >= 1024) return 3; // Desktop
+      if (window.innerWidth >= 640) return 2;  // Tablet
+      return 1;                                // Mobile
+  }
+
+  function updateSliderPosition() {
+      const track = document.getElementById('slider-track');
+      const totalItems = galleryImages.length;
+      const visibleSlides = getVisibleSlides();
+      const maxIndex = totalItems - visibleSlides;
+
+      if (currentSlideIndex > maxIndex) currentSlideIndex = maxIndex;
+      if (currentSlideIndex < 0) currentSlideIndex = 0;
+
+      const slideWidthPercentage = 100 / visibleSlides;
+      track.style.transform = `translateX(-${currentSlideIndex * slideWidthPercentage}%)`;
+  }
+
+  function slideNext() {
+      const maxIndex = galleryImages.length - getVisibleSlides();
+      if (currentSlideIndex < maxIndex) {
+          currentSlideIndex++;
+      } else {
+          currentSlideIndex = 0; // Balik ke foto pertama kalau sudah mentok kanan
+      }
+      updateSliderPosition();
+      resetAutoplay(); // Reset timer tiap kali user klik manual
+  }
+
+  function slidePrev() {
+      if (currentSlideIndex > 0) {
+          currentSlideIndex--;
+      } else {
+          currentSlideIndex = galleryImages.length - getVisibleSlides(); // Lompat ke ujung kiri
+      }
+      updateSliderPosition();
+      resetAutoplay();
+  }
+
+  // 4. ENGINE AUTOPLAY 3 DETIK
+  function startAutoplay() {
+      autoplayTimer = setInterval(() => {
+          slideNext();
+      }, 3000); // 3000 ms = 3 detik
+  }
+
+  function resetAutoplay() {
+      clearInterval(autoplayTimer);
+      startAutoplay();
+  }
+
+  // 5. ENGINE LIGHTBOX (KLIK UNTUK FULL FOTO)
+  function openModal(imageSrc) {
+      const modal = document.getElementById('gallery-modal');
+      const modalImg = document.getElementById('modal-img');
+      modalImg.src = imageSrc;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden'; // Kunci scroll layar utama saat pop-up buka
+      clearInterval(autoplayTimer); // Pause autoplay biar ga geser di background
+  }
+
+  function closeModal() {
+      const modal = document.getElementById('gallery-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = ''; // Aktifkan kembali scroll layar
+      startAutoplay(); // Lanjutkan jalannya autoplay slider
+  }
+
+  // Jalankan ketika halaman pertama kali dimuat
+  window.addEventListener('resize', updateSliderPosition);
+  document.addEventListener("DOMContentLoaded", initSlider);
+</script>
+
+<style>
+  /* Efek animasi fade-in halus untuk popup modal */
+  .animate-fade-in {
+      animation: fadeIn 0.25s ease-out forwards;
+  }
+  @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+  }
+</style>
   <section id="layanan-grid" class="bg-slate-100/60 border-t border-b border-slate-200/50 px-3 md:px-4 py-12 md:py-20">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-8 md:mb-16">
@@ -112,12 +285,12 @@
             <div class="w-8 h-8 md:w-12 md:h-12 bg-blue-50 text-blue-600 rounded-lg md:rounded-xl flex items-center justify-center text-sm md:text-xl font-bold mb-3 shadow-sm">
               <i class="fas fa-home"></i>
             </div>
-            <h3 class="font-black text-slate-900 text-xs md:text-lg mb-1">Bersih Rumah</h3>
+            <h3 class="font-black text-slate-900 text-xs md:text-lg mb-1">Home Cleaning</h3>
             <p class="text-slate-500 text-[11px] md:text-sm leading-relaxed hidden sm:block">Perawatan kebersihan rumah tinggal berkala, vakum kasur/sofa, membersihkan dapur, hingga serah terima rumah baru.</p>
             <p class="text-slate-500 text-[11px] leading-tight block sm:hidden">Pembersihan berkala, vakum kasur, & toilet.</p>
           </div>
           <div class="p-3.5 md:p-6 pt-0">
-            <a href="layanan/bersih-rumah.php" class="w-full text-center bg-slate-50 hover:bg-blue-600 hover:text-white text-slate-700 font-bold text-[10px] md:text-xs py-2 md:py-3 rounded-lg md:rounded-xl block border border-slate-100 hover:border-blue-600 transition tracking-wide uppercase">Detail</a>
+            <a href="services/home-cleaning.php" class="w-full text-center bg-slate-50 hover:bg-blue-600 hover:text-white text-slate-700 font-bold text-[10px] md:text-xs py-2 md:py-3 rounded-lg md:rounded-xl block border border-slate-100 hover:border-blue-600 transition tracking-wide uppercase">Detail</a>
           </div>
         </div>
 
@@ -166,6 +339,77 @@
     </div>
   </section>
 
+  <section id="testimoni" class="max-w-6xl mx-auto px-4 py-12 md:py-20 border-t border-slate-200/50">
+  <div class="text-center mb-10 md:mb-16">
+    <span class="text-blue-600 text-xs font-bold tracking-wider uppercase block mb-1">Testimoni</span>
+    <h2 class="text-xl md:text-3xl font-black text-slate-900 tracking-tight">Apa Kata Mitra Kami?</h2>
+    <p class="text-slate-500 mt-2 text-xs md:text-sm max-w-xl mx-auto">
+      Kredibilitas PT. Saleh Jaya Barokah dibuktikan melalui kepuasan nyata dari berbagai sektor korporasi dan operasional.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex text-amber-400 space-x-1 mb-4 text-xs md:text-sm">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic mb-6">
+          "Pengadaan chemical pembersih lantai dan karbol dari PT. SJB kualitasnya sangat konsisten. Wanginya tahan lama dan aman untuk area publik operasional kami."
+        </p>
+      </div>
+      <div class="flex items-center space-x-3 border-t border-slate-50 pt-4">
+        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-xs">
+          BB
+        </div>
+        <div>
+          <h5 class="font-bold text-slate-900 text-xs md:text-sm">Divisi Umum</h5>
+          <p class="text-[11px] text-slate-400">Bluebird Caready</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex text-amber-400 space-x-1 mb-4 text-xs md:text-sm">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic mb-6">
+          "Tim general cleaning-nya sangat profesional saat membersihkan ruko kantor cabang kami. Pengerjaan karpet dan kaca luar sangat detail dan bersih kesat."
+        </p>
+      </div>
+      <div class="flex items-center space-x-3 border-t border-slate-50 pt-4">
+        <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xs">
+          AF
+        </div>
+        <div>
+          <h5 class="font-bold text-slate-900 text-xs md:text-sm">Bapak Rahman</h5>
+          <p class="text-[11px] text-slate-400">Operational Manager - Adira Finance</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+      <div>
+        <div class="flex text-amber-400 space-x-1 mb-4 text-xs md:text-sm">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="text-slate-600 text-xs md:text-sm leading-relaxed italic mb-6">
+          "Respon cepat untuk kebutuhan dadakan pengadaan alat tulis kantor (ATK) dan seragam support staff. Kerjasama B2B yang sangat memuaskan."
+        </p>
+      </div>
+      <div class="flex items-center space-x-3 border-t border-slate-50 pt-4">
+        <div class="w-10 h-10 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center font-bold text-xs">
+          SA
+        </div>
+        <div>
+          <h5 class="font-bold text-slate-900 text-xs md:text-sm">Ibu Deni</h5>
+          <p class="text-[11px] text-slate-400">Procurement Staff - RS Sari Asih</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
   <section id="legalitas" class="max-w-6xl mx-auto px-4 py-12 md:py-16">
     <div class="text-center mb-8">
       <h2 class="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">Kredibilitas & Legalitas Resmi</h2>
@@ -190,17 +434,82 @@
     </div>
   </section>
 
-  <section class="bg-slate-100 py-10 border-t border-slate-200/60">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-4">Telah Dipercaya Oleh Berbagai Perusahaan</span>
-      <div class="flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
-        <span class="text-sm font-black tracking-tight text-slate-700">BLUEBIRD CAREADY</span>
-        <span class="text-sm font-black tracking-tight text-slate-700">ADIRA FINANCE</span>
-        <span class="text-sm font-black tracking-tight text-slate-700">RS SARI ASIH</span>
-      </div>
-    </div>
-  </section>
+  <!-- SECTION: KLIEN KAMI (INFINITE MARQUEE SLIDER) -->
+<section id="klien" class="py-10 md:py-16 bg-white border-t border-slate-100">
+  <div class="max-w-6xl mx-auto px-4 text-center mb-8">
+    <span class="text-blue-600 text-xs font-bold tracking-wider uppercase block mb-1">Kemitraan</span>
+    <h2 class="text-xl md:text-3xl font-black text-slate-900 tracking-tight">Klien Kami</h2>
+    <p class="text-slate-500 mt-2 text-xs md:text-sm max-w-xl mx-auto">
+      Telah dipercaya oleh berbagai perusahaan, instansi, dan brand nasional dalam menjaga standar kebersihan serta pengadaan kebutuhan operasional.
+    </p>
+  </div>
 
+  <!-- Container Utama Marquee (Overflow Hidden) -->
+  <div class="relative w-full overflow-hidden bg-white py-4 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-20 md:before:w-40 before:bg-gradient-to-r before:from-white before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-20 md:after:w-40 after:bg-gradient-to-l after:from-white after:to-transparent">
+    
+    <!-- Track Jalur Animasi Bergerak -->
+    <!-- Kita menduplikasi list logo menjadi 2 kelompok (Track A dan Track B) agar jalannya menyambung tanpa putus -->
+    <div class="flex w-[200%] md:w-[150%] animate-marquee space-x-8 md:space-x-16 items-center">
+      
+      <!-- KELOMPOK 1 (15 Logo Pertama) -->
+      <div class="flex justify-around space-x-8 md:space-x-16 items-center min-w-full">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/1.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+1'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/2.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+2'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/3.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+3'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/4.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+4'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/5.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+5'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/6.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+6'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/7.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+7'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/8.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+8'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/9.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+9'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/10.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+10'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/1.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+11'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/2.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+12'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/3.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+13'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/4.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+14'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/5.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+15'">
+      </div>
+
+      <!-- KELOMPOK 2 (Duplikat Sempurna untuk Efek Looping Tanpa Putus) -->
+      <div class="flex justify-around space-x-8 md:space-x-16 items-center min-w-full">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/1.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+1'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/2.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+2'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/3.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+3'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/4.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+4'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/5.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+5'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/6.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+6'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/7.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+7'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/8.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+8'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/9.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+9'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/10.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+10'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/1.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+11'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/2.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+12'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/3.jpg" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+13'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/4.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+14'">
+        <img class="h-8 md:h-12 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" src="clients/5.png" alt="Client Logo" onerror="this.src='https://placehold.co/150x50?text=Logo+15'">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CSS INJECT UNTUK MENURUNKAN ENGINE ANIMASI MARQUEE -->
+<style>
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .animate-marquee {
+    display: flex;
+    animation: marquee 30s linear infinite;
+  }
+
+  /* Efek opsional: ketika kursor mouse menyorot logo, jalannya slider akan melambat/berhenti sejenak */
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+</style>
 </main>
 
 <footer id="kontak" class="bg-slate-950 text-slate-400 py-12 px-4 border-t border-slate-900">
